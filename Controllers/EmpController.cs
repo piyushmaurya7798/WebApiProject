@@ -20,7 +20,7 @@ namespace WebApiProject.Controllers
 
         [Route("AddEmp")]
         [HttpPost]
-        public IActionResult AddEmp([FromForm]Emp e)
+        public IActionResult AddEmp(Emp e)
         {
             db.Emps.Add(e);
             db.SaveChanges();
@@ -31,6 +31,13 @@ namespace WebApiProject.Controllers
         public IActionResult GetEmp() 
         {
             var d = db.Emps.ToList();
+            return Ok(d);
+        }
+        [HttpGet]
+        [Route("GetById/{id}")]
+        public IActionResult GetById(int id) 
+        {
+            var d = db.Emps.Find(id);
             return Ok(d);
         }
         
@@ -45,11 +52,11 @@ namespace WebApiProject.Controllers
         }
         
         
-        [Route("UpdateEmp/{id}")]
+        [Route("UpdateEmp")]
         [HttpPatch]
-        public IActionResult UpdateEmp(int id,Emp e) 
+        public IActionResult UpdateEmp(Emp e) 
         {
-            e.Id = id;
+            //e.Id = id;
             db.Emps.Update(e);
             db.SaveChanges();
             return Ok("Deleted");
